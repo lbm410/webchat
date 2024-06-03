@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
-    if (!token) {
+    const userId = localStorage.getItem('userId');
+    if (!token || !userId) {
         window.location.href = 'login.html';
         return;
     }
@@ -16,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const newGroupChatBtn = document.getElementById('new-group-chat-btn');
     const logoutBtn = document.getElementById('logout-btn');
     let selectedChatId = null;
-    let userId = 'your-sender-id'; // Obtén este valor correctamente después de iniciar sesión
 
     newChatBtn.addEventListener('click', async () => {
         const username = prompt('Enter username to chat with:');
@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
         window.location.href = 'login.html';
     });
 
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData();
         formData.append('chatId', selectedChatId);
-        formData.append('senderId', userId); // Asegúrate de proporcionar el senderId correcto
+        formData.append('senderId', userId);
         formData.append('content', message);
         if (file) formData.append('file', file);
 
