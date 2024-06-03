@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const API_URL = 'https://webchatbackend.vercel.app';
     const chatContainer = document.getElementById('chat-container');
     const chatTitle = document.getElementById('chat-title');
     const messageForm = document.getElementById('message-form');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newGroupChatBtn = document.getElementById('new-group-chat-btn');
     const logoutBtn = document.getElementById('logout-btn');
     let selectedChatId = null;
+    let userId = 'your-sender-id'; // Obtén este valor correctamente después de iniciar sesión
 
     newChatBtn.addEventListener('click', async () => {
         const username = prompt('Enter username to chat with:');
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData();
         formData.append('chatId', selectedChatId);
-        formData.append('senderId', 'your-sender-id'); // Asegúrate de proporcionar el senderId correcto
+        formData.append('senderId', userId); // Asegúrate de proporcionar el senderId correcto
         formData.append('content', message);
         if (file) formData.append('file', file);
 
