@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData();
         formData.append('chatId', selectedChatId);
+        formData.append('senderId', 'your-sender-id'); // Asegúrate de proporcionar el senderId correcto
         formData.append('content', message);
         if (file) formData.append('file', file);
 
