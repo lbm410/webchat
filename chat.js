@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
             const messages = await response.json();
-            chatContainer.innerHTML = '';
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = '';
             messages.forEach(message => {
                 displayMessage(message);
             });
@@ -111,7 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayMessage(message) {
         const messageElement = document.createElement('div');
         messageElement.textContent = message.content;
-        chatContainer.appendChild(messageElement);
+        const messageContainer = document.getElementById('message-container');
+        messageContainer.appendChild(messageElement);
     }
 
     loadChats();
