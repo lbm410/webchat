@@ -1,22 +1,31 @@
-document.getElementById('login-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-    const response = await fetch(`${API_URL}/api/users/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch(`${API_URL}/api/users/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userId', data.userId); // Guardar userId en localStorage
+                window.location.href = 'index.html';
+            } else {
+                alert('Login failed: ' + (await response.json()).error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to connect to the server');
+        }
     });
-
-    if (response.ok) {
-        const { token, userId } = await response.json();
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        window.location.href = 'index.html';
-    } else {
-        alert('Login failed');
-    }
 });
