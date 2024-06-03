@@ -124,3 +124,17 @@ body {
 #message-form button:hover {
     background-color: #0056b3;
 }
+
+/* Agrega estilos para los elementos de la lista de chats */
+.chat-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-item:hover {
+    background-color: #e0e0e0;
+}

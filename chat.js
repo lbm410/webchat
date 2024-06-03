@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chatList.innerHTML = '';
             chats.forEach(chat => {
                 const chatElement = document.createElement('div');
+                chatElement.className = 'chat-item';
                 chatElement.textContent = chat.name || chat.participants.map(p => p.username).join(', ');
                 chatElement.addEventListener('click', () => {
                     selectChat(chat._id);
