@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const chatContainer = document.getElementById('chat-container');
+    const chatTitle = document.getElementById('chat-title');
     const messageForm = document.getElementById('message-form');
     const messageInput = document.getElementById('message-input');
     const fileInput = document.getElementById('file-input');
@@ -114,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 chatElement.className = 'chat-item';
                 chatElement.textContent = chat.name || chat.participants.map(p => p.username).join(', ');
                 chatElement.addEventListener('click', () => {
-                    selectChat(chat._id);
+                    selectChat(chat._id, chat.name || chat.participants.map(p => p.username).join(', '));
                 });
                 chatList.appendChild(chatElement);
             });
@@ -123,8 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function selectChat(chatId) {
+    async function selectChat(chatId, chatName) {
         selectedChatId = chatId;
+        chatTitle.textContent = chatName;
         const response = await fetch(`${API_URL}/api/messages/chat/${chatId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
