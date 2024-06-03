@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('file-input');
     const chatList = document.getElementById('chat-list');
     const newChatBtn = document.getElementById('new-chat-btn');
+    const newGroupChatBtn = document.getElementById('new-group-chat-btn');
+    const logoutBtn = document.getElementById('logout-btn');
     let selectedChatId = null;
 
     newChatBtn.addEventListener('click', async () => {
@@ -31,6 +33,37 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Failed to create chat');
         }
+    });
+
+    newGroupChatBtn.addEventListener('click', async () => {
+        const chatName = prompt('Enter name for the group chat:');
+        if (!chatName) return;
+
+        const participants = prompt('Enter usernames of participants separated by commas:').split(',').map(u => u.trim());
+        if (participants.length < 2) {
+            alert('A group chat must have at least 2 participants.');
+            return;
+        }
+
+        const response = await fetch(`${API_URL}/api/chats/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ participants, name: chatName })
+        });
+
+        if (response.ok) {
+            loadChats();
+        } else {
+            alert('Failed to create group chat');
+        }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
     });
 
     messageForm.addEventListener('submit', async (event) => {
@@ -78,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chatList.innerHTML = '';
             chats.forEach(chat => {
                 const chatElement = document.createElement('div');
-                chatElement.textContent = chat.participants.map(p => p.username).join(', ');
+                chatElement.textContent = chat.name || chat.participants.map(p => p.username).join(', ');
                 chatElement.addEventListener('click', () => {
                     selectChat(chat._id);
                 });

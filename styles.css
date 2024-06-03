@@ -58,7 +58,7 @@ body {
     margin: 0;
 }
 
-#new-chat-btn {
+#new-chat-btn, #new-group-chat-btn, #logout-btn {
     margin: 10px 0;
     padding: 10px;
     background-color: #007bff;
@@ -68,7 +68,7 @@ body {
     cursor: pointer;
 }
 
-#new-chat-btn:hover {
+#new-chat-btn:hover, #new-group-chat-btn:hover, #logout-btn:hover {
     background-color: #0056b3;
 }
 
