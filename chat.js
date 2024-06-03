@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chatList.innerHTML = '';
             chats.forEach(chat => {
                 const chatElement = document.createElement('div');
-                chatElement.textContent = chat.name;
+                chatElement.textContent = chat.participants.map(p => p.username).join(', ');
                 chatElement.addEventListener('click', () => {
                     selectChat(chat._id);
                 });

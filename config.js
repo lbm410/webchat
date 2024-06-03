@@ -1,1 +1,1 @@
-const API_URL = 'https://webchatbackend.vercel.app/';
+const API_URL = 'https://webchatbackend.vercel.app';
